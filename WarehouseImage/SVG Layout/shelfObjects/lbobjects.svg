@@ -1,0 +1,159 @@
+<!--- 
+    This file provides the SVG graphic for shelving units
+-->
+
+<svg xmlns="http://www.w3.org/2000/svg">
+    
+    <!--- reference scale is 1:12 where pixel to inch is 12:25 is an inch. Therefore, 1:25 is the current ratio of inch to pixels-->
+        
+    <defs>
+        
+        <rect id="lb4shortshelf4"   width="1100" height="545"  />
+        <rect id="lb4shortshelf5"   width="1100" height="395"  />
+        <rect id="lb4tallshelf4"    width="1100" height="570"  />
+        <rect id="lb4tallshelf5"    width="1100" height="415"  />
+        <rect id="lb5shortshelf4"   width="1400" height="545"  />        
+        <rect id="lb5shortshelf5"   width="1400" height="395"  />
+        <rect id="lb5tallshelf4"    width="1400" height="570"  />        
+        <rect id="lb5tallshelf5"    width="1400" height="415"  />
+        <rect id="lbshortshelfside" width="50"   height="1800" />
+        <rect id="lbtallshelfside"  width="50"   height="2100" />
+        <rect id="lb4rackshelf"     width="1200" height="100"  />
+        <rect id="lb4rackspace"     width="1200" height="950"  />
+        <rect id="lb5rackshelf"     width="2400" height="100"  />
+        <rect id="lb4rackspace"     width="1200" height="950"  />
+        <rect id="lbrackside"       width="75"   height="2100" />
+    
+    </defs>
+
+
+<!--- Must create visible shelf in main group for all following units --->
+    
+    <g id="lbshortshelf4x4">
+
+        <use href="#lbshortshelfside" x="0"    y="495"  />
+        <use href="#lbshortshelfside" x="1150" y="495"  />
+        <use href="#lb4shortshelf4"   x="50"   y="0"    />
+        <use href="#lb4shortshelf4"   x="50"   y="545"  />
+        <use href="#lb4shortshelf4"   x="50"   y="1090" />
+        <use href="#lb4shortshelf4"   x="50"   y="1635" />
+        
+    </g>
+
+    <g id="lbshortshelf4x5">
+
+        <use href="#lbshortshelfside" x="0"    y="345"  />
+        <use href="#lbshortshelfside" x="1150" y="345"  />
+        <use href="#lb4shortshelf5"   x="50"   y="0"    />
+        <use href="#lb4shortshelf5"   x="50"   y="395"  />
+        <use href="#lb4shortshelf5"   x="50"   y="790"  />
+        <use href="#lb4shortshelf5"   x="50"   y="1185" />
+
+    </g>
+
+    <g id="lbshortshelf5x4">
+
+        <use href="#lbshortshelfside" x="0"    y="495"  />
+        <use href="#lbshortshelfside" x="1450" y="495"  />
+        <use href="#lb5shortshelf4"   x="50"   y="0"    />
+        <use href="#lb5shortshelf4"   x="50"   y="545"  />
+        <use href="#lb5shortshelf4"   x="50"   y="1090" />
+        <use href="#lb5shortshelf4"   x="50"   y="1635" />
+    
+    </g>
+
+    <g id="lbshortshelf5x5">
+
+        <use href="#lbshortshelfside" x="0"    y="345"  />
+        <use href="#lbshortshelfside" x="1450" y="345"  />
+        <use href="#lb5shortshelf5"   x="50"   y="0"    />
+        <use href="#lb5shortshelf5"   x="50"   y="395"  />
+        <use href="#lb5shortshelf5"   x="50"   y="790"  />
+        <use href="#lb5shortshelf5"   x="50"   y="1185" />
+
+    </g>
+
+    <g id="lbtallshelf4x4">
+
+        <use href="#lbtallshelfside" x="0"    y="520"  />
+        <use href="#lbtallshelfside" x="1150" y="520"  />
+        <use href="#lb4tallshelf4"   x="50"   y="0"    />
+        <use href="#lb4tallshelf4"   x="50"   y="570"  />
+        <use href="#lb4tallshelf4"   x="50"   y="1140" />
+        <use href="#lb4tallshelf4"   x="50"   y="1710" />
+        
+    </g>
+
+    <g id="lbtallshelf4x5">
+
+        <use href="#lbtallshelfside" x="0"    y="365"  />
+        <use href="#lbtallshelfside" x="1150" y="365"  />
+        <use href="#lb4tallshelf4"   x="50"   y="0"    />
+        <use href="#lb4tallshelf4"   x="50"   y="415"  />
+        <use href="#lb4tallshelf4"   x="50"   y="830"  />
+        <use href="#lb4tallshelf4"   x="50"   y="1245" />
+
+    </g>
+
+    <g id="lbtallshelf5x4">
+
+        <use href="#lbtallshelfside" x="0"    y="520"  />
+        <use href="#lbtallshelfside" x="1450" y="520"  />
+        <use href="#lb5tallshelf4"   x="50"   y="0"    />
+        <use href="#lb5tallshelf4"   x="50"   y="570"  />
+        <use href="#lb5tallshelf4"   x="50"   y="1140" />
+        <use href="#lb5tallshelf4"   x="50"   y="1710" />
+    
+    </g>
+
+    <g id="lbtallshelf5x5">
+
+        <use href="#lbtallshelfside" x="0"    y="365"  />
+        <use href="#lbtallshelfside" x="1450" y="365"  />
+        <use href="#lb5tallshelf5"   x="50"   y="0"    />
+        <use href="#lb5tallshelf5"   x="50"   y="415"  />
+        <use href="#lb5tallshelf5"   x="50"   y="830"  />
+        <use href="#lb5tallshelf5"   x="50"   y="1245" />
+
+    </g>
+
+
+    <!--- 
+        Pallet Racks do NOT need to create a second visible, but DO need special text.
+
+        Pallet Racks do not highlight similar to shelving units since the first rack labels for L.1 and L.2. 
+    --->
+
+    <g id="lb4rack">
+
+        <use href="#lbrackside"   x="0"    y="950"  />
+        <use href="#lbrackside"   x="1275" y="950"  />
+
+        <!--- Label Group --> 
+        <use href="#lb4rackshelf" x="75"   y="950"  />
+        <use href="#lb4rackshelf" x="75"   y="2000" />
+        
+        <!--- Highlight Group -->
+        <use href="#lb4rackspace" x="75"   y="0"    />
+        <use href="#lb4rackspace" x="75"   y="1050" />
+        <use href="#lb4rackspace" x="75"   y="2100" />
+
+    </g>
+
+    <g id="lb8rack">
+
+        <use href="#lbrackside"   x="0"    y="950"  />
+        <use href="#lbrackside"   x="2475" y="950"  />
+        
+        <!--- Label Group --> 
+        <use href="#lb5rackshelf" x="75"   y="950"  />
+        <use href="#lb5rackshelf" x="75"   y="2000" />
+
+        <!--- Highlight Group -->
+        <use href="#lb5rackspace" x="75"   y="0"    />
+        <use href="#lb5rackspace" x="75"   y="1050" />
+        <use href="#lb5rackspace" x="75"   y="2100" />
+
+    </g>
+
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <rect id="basefselector" width="62.5" height="62.5"  />
+        <rect id="base4shelf"    width="100"  height="62.5"  />
+        <rect id="base5shelf"    width="125"  height="62.5"  />
+        <rect id="base4rack"     width="100"  height="112.5" />
+        <rect id="base8rack"     width="200"  height="112.5" />
+        <rect id="base3space"    width="6.25" height="112.5" />
+        
+        <g id="lb4shortunit">
+            
+        </g>
+        <g id="lb4tallunit">
+            
+        </g>
+        <g id="lb5shortunit">
+            
+        </g>
+        <g id="lb5tallunit">
+            
+        </g>
+
+        
+    </defs>
+
+    <g id="selectable">
+
+        <g id="fgroupselectors">
+            <!--- Itallic Text -->
+            
+
+        </g>
+
+        <g id="boldselectors">
+            <!--- bold text --->
+
+            <g id="palletracks">
+                
+            </g>
+
+
+            <g id="shelvingunits"> 
+                
+            </g>
+
+        </g>
+            
+    </g>
+
+    <g id="nonselectable">
+        
+    </g>
+
+
+
+
+
+</svg>

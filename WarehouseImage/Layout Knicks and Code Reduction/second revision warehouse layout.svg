@@ -684,7 +684,7 @@
                 <g stroke="white" fill="none" opacity="0" stroke-width="8" stroke-dasharray="none" pointer-events="all" no-export="1" width="125" height="62.5" transform="scale(1,1) translate(0,0)">
                     <rect width="125" height="62.5"></rect>
                 </g>
-                <g width="124" height="61.5" transform="scale(1,1) translate(0.5,0.5)">
+                <g width="125" height="61.5" transform="scale(1,1) translate(0.5,0.5)">
                     <rect stroke-width="0" fill="none" visibility="hidden" no-export="1" transform="scale(1,1) translate(0,0)" width="124" height="61.5"></rect>
                     <text width="124" height="21.875" transform="scale(1,1) translate(0,19.8125)" xml:space="preserve">
                         <tspan xml:space="preserve" text-rendering="optimizeSpeed" font-size="19.444444444444443" font-weight="bold" font-style="normal" text-decoration="none" fill="#000000" opacity="1" x="24.736" text-anchor="start" y="17.708" textLength="74.52799224853516" style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">F.03.M.6</tspan>
