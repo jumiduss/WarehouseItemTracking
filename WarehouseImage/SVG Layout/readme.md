@@ -135,3 +135,79 @@ General Behaviors and Style
             Possibly use gradient that shows selection history
     L-Shelf Image may be removed by being unpractical once system is implemented.
     
+
+update 11/13/23
+
+
+New strategy is creating sub-svg tags on each unit, then
+another tier of sub-svg tags for each logical unit for shelves, space,
+and boarder.
+
+These groups matter since:
+    space class flashes when selecting stock
+    shelf class have variable text descriptions
+    shelf sides remain inactive 
+
+What needs to be implemented is a variable shelving unit based on:
+    number of shelves
+    shelving unit total height
+    shelving unit total width
+    side support width
+
+Shelving Unit Equations
+
+- variables
+
+    m  = Number of shelves
+    n = Number of spaces
+    wTotal = Total width
+    wSupport = Shelf side Support width 
+    wSpace = Space width between side supports
+    hTotal = Total height
+    hShelf = Single shelf height
+    hUnit = Shelving unit height
+    hSpace = Space height between shelves
+    bBase = boolean of whether unit has skirt distance of 3 inches, 1 = true
+    bRack = boolean of whether unit is pallet rack, 1 = true
+
+- coordinates Starting from (0,0) importances on x position then y
+    coordinates are top left start position
+
+    xSpace1 = 0
+    xSupportL = 0
+    xShelf1 = xSpace2 = xShelf2 = ... = ... = xShelfm = xSpacen
+    => [forall xShelf[1<=i<=m] = forall xSpace[2<=j<=n]] 
+    => [xShelf = xSpace] = xCenter
+    => xCenter = wSupport
+
+    xSupportR = wSupport + wCenter
+
+    yShelf = [] * m
+    ySpace = [] * n
+
+    ySpace[1] = 0
+    hSpace = yShelf[1] = ySupport1 = ySupport2
+    yShelf[2<=i<=m] = ySpace[i] + hSpace 
+        yShelf[1] = ySupport1 = ySupport2 = __ySupport__
+    ySpace[2<=j<=n] = yShelf[j - 1] + hShelf
+
+
+- Group Equations - Conditions
+    All m,n,bBase are unitless, all other in length unit inches
+
+    m = [3,4,5]
+    n = [2,4,5]
+
+    wTotal = [54,60,72,102]
+    wSupport = [2,3]
+    wSpace[1<=j<=n] = wTotal[v] - [0 , (2 * wSupport[w])] --- 0 if i=1
+
+    hShelf = [2,3,4]
+    hUnit = [6,7]
+    bBase = [0,1]
+    bRack = [0,1]
+
+    if bRack[1]
+        hspace = (hTotal / 2) - hShelf
+    else
+        hSpace = {hTotal - (hShelf[x] * m) - (3 * bBase[y])}  /  {n[z] - 1}
