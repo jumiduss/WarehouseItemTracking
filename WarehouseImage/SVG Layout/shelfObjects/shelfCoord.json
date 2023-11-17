@@ -1,0 +1,162 @@
+{
+    "r4":
+    {
+        "qShelf":2,
+        "qSpace":3,
+
+        "wTotal":54,
+        "wSupport":3,
+        "wShelf":48,
+
+        "hUnit":84,
+        "hShelf":4,
+        "hBase":0,
+        "hSpace":38,
+        "hTotal":122
+    },
+
+    "r8":
+    {
+        "qShelf":2,
+        "qSpace":3,
+
+        "wTotal":102,
+        "wSupport":3,
+        "wShelf":96,
+
+        "hUnit":84,
+        "hShelf":4,
+        "hBase":0,
+        "hSpace":38,
+        "hTotal":122
+    },
+
+    "s464":
+    {
+        "qShelf":4,
+        "qSpace":4,
+
+        "wSupport":2,
+        "wShelf":44,
+
+        "wTotal":48,
+        "hUnit":72,
+        "hShelf":2,
+        "hBase":2.5,
+        "hSpace":22.5,
+        "hTotal":100.5
+    },
+
+    "s465":
+    {
+        "qShelf":5,
+        "qSpace":5,
+
+        "wSupport":2,
+        "wShelf":44,
+        "wTotal":48,
+
+        "hUnit":72,
+        "hShelf":2,
+        "hBase":2,
+        "hSpace":17,
+        "hTotal":97
+    },
+
+    "s474":
+    {
+        "qShelf":4,
+        "qSpace":4,
+
+        "wSupport":3,
+        "wShelf":42,
+        "wTotal":48,
+
+        "hUnit":84,
+        "hShelf":3,
+        "hBase":0,
+        "hSpace":27,
+        "hTotal":120
+    },
+
+    "s475":
+    {
+        "qShelf":5,
+        "qSpace":5,
+
+        "wSupport":3,
+        "wShelf":42,
+        "wTotal":48,
+
+        "hUnit":84,
+        "hShelf":3,
+        "hBase":0,
+        "hSpace":20.25,
+        "hTotal":116.25
+    },
+
+    "s564":
+    {
+        "qShelf":4,
+        "qSpace":4,
+
+        "wSupport":2,
+        "wShelf":56,
+        "wTotal":60,
+
+        "hUnit":72,
+        "hShelf":2,
+        "hBase":2.5,
+        "hSpace":22.5,
+        "hTotal":100.5
+    },
+    
+    "s565": 
+    {
+        "qShelf":5,
+        "qSpace":5,
+
+        "wSupport":2,
+        "wShelf":56,
+        "wTotal":60,
+
+        "hUnit":72,
+        "hShelf":2,
+        "hBase":2,
+        "hSpace":17,
+        "hTotal":97
+    },
+
+    "s574":
+    {
+        "qShelf":4,
+        "qSpace":4,
+
+        "wSupport":3,
+        "wShelf":54,
+        "wTotal":60,
+
+        "hUnit":84,
+        "hShelf":3,
+        "hBase":0,
+        "hSpace":27,
+        "hTotal":120
+    },
+    
+    "s575":
+    {
+        "qShelf":5,
+        "qSpace":5,
+
+        "wSupport":3,
+        "wShelf":54,
+        "wTotal":60,
+        
+        "hUnit":84,
+        "hShelf":3,
+        "hBase":0,
+        "hSpace":20.25,
+        "hTotal":116.25
+    }
+
+}

@@ -208,6 +208,10 @@ Shelving Unit Equations
     bRack = [0,1]
 
     if bRack[1]
-        hspace = (hTotal / 2) - hShelf
+        hspace = (hUnit / 2) - hShelf
     else
         hSpace = {hTotal - (hShelf[x] * m) - (3 * bBase[y])}  /  {n[z] - 1}
+
+
+    The results for all calculations are constant, so I'm performing the
+        arithmatic and including them in a json database that js can call.
