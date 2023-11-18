@@ -1,0 +1,513 @@
+jQuery Ajax Functions
+
+    Note, Most Ajax requests are subject to the same origin policy in domains/subdomains/port/protocols
+
+
+    jQuery.ajax()
+        Format of : jQuery.ajax( url [, settings ])
+        often unnecessary to directly call this function since:
+            $.get() or .load() exist and are easier to use
+        Can be called with no arguments. 
+            It loads the page and does nothing with the results.
+        Setup globally with $.ajaxSetup()
+        
+        jqXHR Object - "jQuery XMLHttpRequest" object that is returned by $.ajax()
+            contains:
+                responseText
+                responseXML
+                egtResponseHeader()
+                overrideMimeType()
+                    can be used with beforeSend() callback function
+            Implement the "Promise" interface
+                Gives properties, methods, and behavior of a Promise (deferred Object)
+                Allows you to assign multiple callbacks on a single request, and 
+                    assign callbacks after the request may have completed.
+                    (if already completed, callback fires immediately)
+            
+            Promise Methods:
+                jqXHR.done(function( data, textStatus, jqXHR){});
+                    Success Callback Alternative
+
+                jqXHR.fail(function( jqXHR, textStatus, errorThrown){});
+                    Error Callback Alternative 
+
+                jqXHR.always(function( data|jqXHR, textStatus, jqXHRerrorThrown){});
+                    Complete Callback Alternative - ".always()" replaces the depreciated ".complete()"
+                    If request is succeeds the functions args are the same as ".done()"
+                    If request fails, the functions args are the same as ".fail()"
+                
+                jqXHR.then(function( data, textStatus, jqXHR ){}, function( jqXHR, textStatus, errorThrown ) {})
+                    Combines Functionality of .done() and .fail()
+                    Allows the underlying Promise to be manipulated
+
+            NOTE: The following are depreciated:
+                jqXHR.success()
+                jqXHR.error()
+                jqXHR.complete()
+
+            ex_|
+                var jqxhr = $.ajax( "example.php" )
+                    .done(function() {
+                        alert( "success" );
+                    })
+                    .fail(function() {
+                        alert( "error" );
+                    })
+                    .always(function() {
+                        alert( "complete" );
+                    })
+                
+                // This sets another function for the above request 
+                jqxhr.always(function() {
+                    alert( "second complete" );
+                });
+
+        "this" referenced in the callbacks is the "content" object passed to $.ajax in settings 
+            if context isn't specified, this is viewed as the Ajax settings themselves
+
+        Can be backwards compatible with XMLHttpRequest by exposing the following jqXHR properties/methods:
+            readyState
+            responseXML and or responseText
+            status
+            statusText
+            abort( [ statusText ] )
+            getAllResponseHeader( name )
+            overrideMimeType( mimeType )
+            setRequestHeader( name, value )
+            statusCode( callbacksByStatusCode )
+
+            note: done, fail, always, and statusCode cover all conceivable requirements for onreadystatechange
+        
+        Callback Function Queues of $.ajax() hooks
+            1. beforeSend - receives jqXHR and settings as parameters.
+
+            2. error      - if the request fails - receives 
+                jqXHR, string of error type, and if appl. exception obj.
+
+            3. dataFilter - invoked immediately on successful confirm - it takes:
+                returned data, val of data type, and possibly altered data.
+
+            4. success    - if request succeeds - it takes returned data, string of success code, jqXHR obj.
+
+            5. Promise Callbacks - .done(), .fail(), .then() - invoked in order they are registered.
+
+            6. complete   - when the request finishes - receives jqXHRobj, string with error/success code.
+
+        Handling Data Types
+            Text and HTML - no pre-processing - to responseText obj
+            XML - jQuery,parseXML to success handler to responseXML obj
+            json - jQuery.parseJSON to success handler to responseJSON
+            script - $.ajax() executes as JavaScript to success handler as string 
+            jsonp - appends query string with "callback=? to the url, unless specified in jsonp settings
+                returns valid JavaScript that passes the JSON response into $.ajax(), the processes as JSON 
+
+        Sending Data to the Server
+            Typically though GET HTTP method, if using POST, specify type in settings
+            data contains querystring:
+                key1=value1&key2=value2&etc
+                {key1: 'value1', key2: 'value2'} then converted with jQuery.param() before being sent
+                    (unless setting the processData setting to flase)
+
+    jQuery.ajax() Arguments 
+        url - String - URL the request is sent
+
+        Settings (Object Type):
+            Settings Notes:
+                A set of key/val pairs that configure the Ajax request
+                Settings are optional
+                Default can be set at $.ajaxSetup()
+
+        Settings Options:
+            
+            accepts - PlainObject - key/value pairs that map a dataType to it's MIME type for the accept request.
+                
+                Tells the server what response it will accept and return.
+                
+                ex_| Defines a custom data type and converts it.
+                $.ajax({
+                    accepts: {
+                        mycustomtype: 'application/x-some-custom-type'
+                    },
+                    converters: {
+                        'text mycustomtype': function(result) {
+                            newresult = dothings_on_result;
+                            return newresult;
+                        }
+                    },
+                    dataType: 'mycustomtype'
+                });
+
+            async - Boolean - Defaulted to true for sending requests asynchronously.
+            
+                Note, jsonp do not support synchronous operation
+                Synchronous operation could temporarily lock browser and disable actions while active
+                Async with jqXHR($.Deferred) is depreciated after jQuery 1.8
+
+            beforeSend - Function - Pre-request that modifies jqXHR before being sent
+                Returning false in the before send cancels the request.
+
+            cache - Defaults true unless dataType is 'script' or 'jsonp'
+                If false, forces requested pages to not allow caching by the browser.
+                False only works with HEAD and GET requests by:
+                    appending "_={timestamp}" to the GET parameters
+                    Not needed for other requests unless in IE8
+
+            complete - Function (jqXHR value, String textStatus)
+                textStatus values
+                    success
+                    notmodified
+                    nocontent
+                    errortimeout
+                    abort
+                    parsererror
+
+                "complete" called after a request finishes and results processed.
+                
+                On jQuery 1.5, complete can acccept an array of functions to be called in turn.
+
+            contents - Defines how jQuery will parse the response.
+                a string / expression pair added on 1.5
+
+            contentType - Boolean or String
+                When sending data to a server.
+                Default type is "application/x-www-form-urlencoded; charset=UTF-8"
+                W3C dictates the charset is UTF-8 for XMLHttpRequest
+            
+            context - PlainObject
+                The content of all Ajax callbacks. 
+                By default it represents the settings used in $.ajaxSettings and $.ajax
+                ex_|
+                $.ajax({
+                    url: "test.html"
+                    context: document.body
+                }).done(function() {
+                    $( this ).addClass( "done" );
+                });
+
+            converters - default is {"* text": window.String, "text html": true, "text json": jQuery.parseJSON, "text xml": jQuery.parseXML}
+                contains a dataType to dataType converter that returns the transformed value
+
+            crossDomain - default false for same-domain, true for cross-domain
+                    forces a crossDomain request on the same domain if true, added v1.5
+
+            data - PlainObject, String, Array
+                data to be sent to the server
+                If the method can't have an entity body, like GET, it is appended to the URL
+                When data is:
+                    Object - jQuery generates the data-string from the objects key-value pairs in a string
+                                (unless processData is set to false)
+                    Array - jQuery serializes multiple values with the same key and becomes a string
+                                (based on the traditional setting)
+                    Data - Should already be encoded with contentType
+                    json / jsonp - if "??" or "?"is contained anywhere in the url,
+                                    jQuery replaces it with it's own generated value for 
+                                    each copy of the library on the page.
+
+            dataFilter - Function
+                Handles raw response data of XMLHttpRequest
+                Prefilters the data to sanitize the response
+                Returns as dataType parameter
+
+            dataType - Intelligent Guess (xml, json, script, or html) - String
+                The type of data you expect back from the data
+                If none is specified, jQuery will attemp to infer based on MIME response type
+                Data Types:
+                    xml - returns XML document that jQuery can process
+
+                    html - returns HTML as plain text
+                            (included script tags are evaluated during DOM insertion)
+
+                    script - Evaluates the response as JavaScript and returns plaintext
+                            - Turns POSTs into GETs 
+                            - Disable cache with "_=[TIMESTAMP]" appended to URL
+
+                    json - Evaluates the response as JSON and returns JavaScript object.
+                        - if jsonp is false, it performs the same on cross domain requests.
+                    
+                    jsonp - Loans JSON block using JSONP and adds an extra "?callback=?" to the end of the URL
+                        - Disable caching with "_[TIMESTAMP]" unless cache is set to true
+                    
+                    text - returns plaintext string
+
+                    "multiple space seperated values" - converts a dataType based on Content-Type header
+                        ex_| if you want text response to be treated as xml, "text xml" use for dataType
+                        ex_| JSONP request, receive as plaintext, interpreted as XML, use "jsonp text xml"
+                        ex_| "jsonp xml" will try to convert JSONP to XML. After failing, 
+                                it will convert JSONP to plaintext, then to XML
+            
+            error - Function - receives jqXHR (or XMLHttpRequest), string of the error, an optional exception if occurred.
+                Possible Values Arg2:
+                    null
+                    timeout
+                    error
+                    abort
+                    parsererror
+
+                On HTTP error, errorThrown receives text portion of HTTP status
+                    "Not Found" or "Internal Server Error" or an empty string in HTTP/2
+
+            global - Boolean, default: true
+                deciding value on whether global Ajax event handlers are triggered
+                false stops ajaxStart and ajaxStop from triggering
+                Can be used to control Ajax Events
+
+            headers - PlainObject - default: {}
+                additional header key-value pairs to send with request using XMLHttpRequest 
+                headers values can be overwritted with beforeSend function
+                "x-Requested-With: XMLHttpRequest" is always added, 
+                    but the defaulted XMLHttpRequest can be changed.
+
+            ifModified - Boolean - default:false (i.e. ignores the header)
+                allows request to succeed only if response has changed by checking Last-Modified header
+                
+            isLocal - Boolean - defaults based on current locations
+                Allows the current environment to be recognized as local,
+                    even if jQuery doesn''t by default
+                Regonized Local Protocols:
+                    file
+                    *-extension
+                    widget
+                isLocal is modified in $.ajaxSetup() method
+
+            jsonp - String / Boolean
+                Overrides the callback function name in JSONP request
+                This value is used instead of "callback" in "callback=?" in the query string
+                    ex_| "{jsonp:'onJSONPLoad'}" becomes "onJSONPLoad=?"
+                setting this to false prevents jQuery from adding "?callback" string to the URL
+                    or the "=?" URL transformation, you MUST explicitly set jsonCallBack is doing so
+                    
+            jsonpCallback - String or Function
+                Specifies callback function name for JSONP request
+                Although, it is preferable to let jQuery manage the function name
+                A specific use case could be when enabling better browser caching in GET requests
+                Can also use a function for this setting where the value of jsonpCallBack,
+                    is set to the functions return value
+
+            method - String - default: "GET" - the HTTP method used for the request
+
+            mimeType - String - A mime type to override XMR mime type
+
+            password - String - used with XMLHttpRequest in response to HTTP access auth request
+            
+            processData - Boolean - default: true
+                Anything other that a string is passed as an object and transformed into a query string.
+                Fits the type "application/e-www-form-urlencoded"
+                If sending DOMDocument or other non-processed data, set to false
+
+            scriptAttrs - PlainObject - Defines additional attributes for script and jsonp
+                If provided, it forces script-tag transport
+
+            scriptCharset - string - only applies to script transportation
+                When the charset on the local page is not the same as the remote script.
+                Using charset in scriptAttrs will do the same
+
+            statusCode - PlainObject - default: {}
+                an object with numberic HTTP codes and functions to be called when the response code matches.
+
+            success - Function - responds with anything data, string, textStatus, and jqXHR
+                called on request success
+
+            timeout - Number - a timeout value for a request - 0 means no timeout
+                Overrides gobal timeouts set with ajaxSetup()
+                Period starts when $.ajax call is made.
+                    If several requests are waiting, a call can timeout before it''s sent
+                JSONP cannot be canceled by timeout in firefox 3.0+
+
+            traditional - Boolean - set true to use traditional parameter serialization
+
+            type - String - default: "GET" - alias for method, use type instead for jQuery before 1.9.0
+            
+            url - String - default: the current page - a string that contains the URL the request is sent to
+
+            username - String - username for XMLHttpRequest in response to HTTP access auth request
+
+            xhr - Function - default: ActiveXObject when available (IE), else the XMLHttpRequest 
+                callback for creating the XMLHttpRequest object
+                Override to provide your own XMLHttpRequest implementation or factory enhancements
+            
+            xhrFields - PlainObject - fieldName/fieldValue pairs set on native XHR object.
+
+
+        Converters
+            Convert data types examples
+            ex_|
+                $.ajaxSetup({
+                    contents: {
+                        mycustomtype: /mycustomtype/
+                    }
+                    converters: {
+                        "mycustomtype json": function( result ) {
+                            //dostuff
+                            return newresult;
+                        }
+                    }
+                })
+
+
+
+    jQuery.ajaxPrefilter() - For Handling Custom Options 
+        Format of: jQuery.ajaxPrefilter( [dataTypes ], handler)
+        $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+            //Modify options, control originalOptions, store jqXHR, etc
+        })
+
+
+    jQuery.ajaxSetup() - Formats all subsiquent Ajax calls
+        Format of: jQuery.ajaxSetup( options )
+
+    
+    jQuery.ajaxTransport() - An object that handles the actual Ajax data transmission
+        Format of: jQuery.ajaxTransport( dataType, handler)
+        dataType - String 
+        handler - Function
+        Contains both the send and abort methods
+        To register a transport, provide a function that returns a transport instead of direct reference
+        
+    jQuery.get() - Loads data from the server with HTTP GET request
+        Format of: jQuery.get( url [, data] [, success] [, dataType ] )
+        
+        ex_|
+            $.get( "test.php", { name: "John", time: "2pm" } );
+            $.get( "test.php", function( data ) {
+                $( "body" )
+                    .append( "Name: " + data.name )   // John
+                    .append( "Time: " + data.time );  // 2pm
+                }, "json" );
+
+    jQuerygetJSON() - loads JSON-encoded data from the server with GET HTTP
+    
+    jQuery.getScript() -  Loads a JavaScript file from the server using GET HTTP
+    
+    jQuery.param() - Creates a serialized representation of an array, plain, or jQuery object for URL query string
+
+    jQuery.post() - Sends data to the server with HTTP POST request
+
+    .load() - loads data from the server and places the returned HTML into the matched elements
+        
+        The simplest way to fetch data from the server
+        
+        ex_| Note, if document doesn''t contain the element, the call won''t be made, the element can also be a script to run on document
+             $( "#result" ).load( "ajax/test.html");
+
+        ex_| Note, we can specify a part of the document
+             $( "#result" ).load( "ajax/test.html #container");
+
+    .serialize() - Creates a text string in standard URL-encoded notation
+
+
+    .serializeArray() - Creates a JavaScript array of objects that is ready to be encoded as a JSON string
+        can be used to collect form data or form controls.
+
+        ex_|
+            <form>
+                <div><input type="text" name="a" value="1" id="a"></div>
+                <div><input type="text" name="b" value="2" id="b"></div>
+                <div><input type="hidden" name="c" value="3" id="c"></div>
+                <div>
+                    <textarea name="d" rows="8" cols="40">4</textarea>
+                </div>
+                <div><select name="e">
+                    <option value="5" selected="selected">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select></div>
+                <div>
+                    <input type="checkbox" name="f" value="8" id="f">
+                </div>
+                <div>
+                    <input type="submit" name="g" value="Submit" id="g">
+                </div>
+            </form>
+
+            (jQuery method)
+            $( "form" ).on( "submit", function( event ) {
+                console.log( $( this ).serializeArray() );
+                event.preventDefault();
+            })
+
+            This produces a data structure like:
+
+                [
+                    {
+                        name: "a",
+                        value: "1"
+                    },
+                    {
+                        name: "b",
+                        value: "2"
+                    },
+                    {
+                        name: "c",
+                        value: "3"
+                    },
+                    {
+                        name: "d",
+                        value: "4"
+                    },
+                    {
+                        name: "e",
+                        value: "5"
+                    }
+                ]
+********************* Critically Important for Right Side of Site''s Page ******************************
+        ex_| Gets the values from the form and iterates through them to display as a results list
+
+            <!doctype html>
+            <html lang="en">
+            <head>
+                <meta charset="utf-8">
+                <style>
+                body, select {
+                    font-size: 14px;
+                }
+                form {
+                    margin: 5px;
+                }
+                p {
+                    color: red;
+                    margin: 5px;
+                }
+                b {
+                    color: blue;
+                }
+                </style>
+                <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+            </head>
+            <body>
+                <p><b>Results:</b> <span id="results"></span></p>
+                <form>
+                    <select name="single">
+                        <option>Single</option>
+                        <option>Single2</option>
+                    </select>
+                    <select name="multiple" multiple="multiple">
+                        <option selected="selected">Multiple</option>
+                        <option>Multiple2</option>
+                        <option selected="selected">Multiple3</option>
+                    </select>
+                    <br>
+                    <input type="checkbox" name="check" value="check1" id="ch1">
+                    <label for="ch1">check1</label>
+                    <input type="checkbox" name="check" value="check2" id="ch2">
+                    <label for="ch2">check2</label>
+                    <input type="radio" name="radio" value="radio1" id="r1">
+                    <label for="ch1">radio1</label>
+                    <input type="radio" name="radio" value="radio2" id="r2">
+                    <label for="r2">radio2</label>
+                </form>
+
+                <script>
+                    function showValues() {
+                        var fields = $( ":input" ).serializeArray();
+                        $( "#results" ).empty();
+                        jQuery.each( fields, function( i, field ) {
+                            $( "#results" ).append( field.value + " " );
+                        } );
+                    }
+
+                    $( "checkbox, :radio" ).on(( "click", showValues ));
+                    $( "select" ).on( "change", showValues ):
+                    showValues();
+                </script>
+            </body>
+            </html>
