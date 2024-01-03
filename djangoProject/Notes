@@ -1,0 +1,61 @@
+Two search fields for the warehouse:
+    One for article number without drop down
+    One for the item name with drop down and or autofill tab complete
+
+Regular Expressions
+    https://docs.python.org/3/library/re.html#:~:text=thorough%20Unicode%20support.-,Regular%20Expression%20Syntax,down%20to%20the%20same%20thing).
+
+Search features with bootstrap
+    Text version of item names?
+    JQuery Select 2
+        https://select2.org/getting-started/basic-usage
+    bootstrap autocomplete
+        https://bootstrap-autocomplete.readthedocs.io/en/latest/
+    bootstrap data-live-search
+        <div class="filter-component">
+        <h5 class="text-center text-danger"> Name: </h5>
+        <select ng-model="name" class="nameSelect" data-live-search="true" data-style="btn-primary" ng-options="x for x in names"> <option value="">Nothing selected</option>
+        </select>
+        </div>
+        $(document).on('keyup', '.filter-component .bs-searchbox input', function (e) {
+        var searchData = e.target.value;
+        console.log(searchData);
+
+        //You can write the ajax code here
+        });
+
+Project Steps:
+A. Create the Database
+    1. Create all warehouse locations
+        -Completed 1/1/24
+    2. Create all items inside our ERP Catelogue
+    3. Link all in-stock items to their location container
+    4. Create the interactable database template
+    5. Create behavior templates
+    6. Apply styling to the behaviors
+    7. Make the database adaptively display filtered results
+    8. Create on page database modification actions.
+B. Create the Warehouse Layout
+    1. Create the dimensionally accurate warehouse svg
+    2. Connect the svg to database items through the id property
+    3. Create behavior templates
+    4. Apply styles to the behaviors
+C. Create the Shelf Representation
+    1. Create the list containing shelf-type data
+    2. Create the behavior that applies the shelf list item based on warehouse shelving unit selection
+        Possibly within css M unit
+    3. Apply the behavior with styling
+D. Create the Article Number Search Bar
+    1. Create the form that accepts 6 ints
+    2. Create the html text field to enter the data
+    3. Create form errors and responses for bad data
+        Possibly deny any button press except digit
+E. Create the Item Number Search Bar
+    1. Create the search results for top level invenorty groups 
+    2. Create the text field that actively reads input text
+    3. Create the drop-down list behavior after first character is entered
+    4. Populate the drop-down list based on text
+F. Create User Account Access Control For Editing Database Items 
+G. Integrate All Items Onto the Home Page
+H. Create Site Layouts for mobile Devices
+I. Create Barcode Scanner Application For Faster Stock Management

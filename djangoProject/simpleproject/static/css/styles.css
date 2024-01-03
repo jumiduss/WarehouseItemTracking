@@ -1,0 +1,11 @@
+#warehouse_layout{
+    display:flex;
+    justify-content: flex-start;
+}
+#search{
+    display: flex;
+    justify-content: flex-end;
+}
+#rowselect{
+    display:grid;
+}
