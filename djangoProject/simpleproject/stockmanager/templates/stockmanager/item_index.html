@@ -1,0 +1,5 @@
+<ul>
+{% for item in item_set %}
+<li><a href="{% url 'stockmanager:item' item.id %}">Name:   {{ item.item_name }}               Article: {{ item.article_number }}</a></li>
+{% endfor %}
+</ul>

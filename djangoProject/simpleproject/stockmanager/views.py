@@ -5,25 +5,32 @@ from django.urls import reverse
 from django.views import generic
 from stockmanager.models import Location,Item
 
-class ItemIndexView(generic.ListView):
-    template_name = "stockmanager/item_index.html"
-    context_object_name = "item_set"
-
-    def get_queryset(self):
-        return Item.objects.order_by("item_name")
-
-class ShelfIndexView(generic.ListView):
-    template_name = "stockmanager/shelf_index.html"
-    context_object_name = "shelf_set"
-
-    def get_queryset(self):
-        return Location.objects.order_by("f_num","m_num","l_num",)
-
-class ShelfView(generic.DetailView):
-    model = Location
-    context_object_name = "location_list"
-    
 class ItemView(generic.DetailView):
     model = Item
-    context_object_name = "item_list"
+    template_name = "stockmanager/item.html"
+    context_object_name = "item"
+    
+
+class ItemIndexView(generic.ListView):
+    model = Item
+    context_object_name = "item_set"
+    template_name = "stockmanager/item_index.html"
+
+    def get_queryset(self):
+        return Item.objects.all()
+    
+
+class LocationView(generic.DetailView):
+    model = Location
+    template_name = "stockmanager/location.html"
+    context_object_name = "location"
+
+class LocationIndexView(generic.ListView):
+    model = Location
+    context_object_name = "location_set"
+    template_name = "stockmanager/location_index.html"
+
+    def get_queryset(self):
+        return Location.objects.all()
+    
 

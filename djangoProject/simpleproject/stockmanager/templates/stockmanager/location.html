@@ -1,0 +1,9 @@
+<h1>{{ location.f_num }}</h1>
+<h2>{{ location.m_num }}</h2>
+<h3>{{ location.l_num }}</h3>
+<ul>
+{% for item in location.item_set.all %}
+    <li>Name : {{ item.item_name }}</li>
+{% endfor %}
+</ul>
+<a href="{% url 'stockmanager:location_index' %}">Go Back?</a>

@@ -1,0 +1,5 @@
+<ul>
+  {% for location in location_set %}
+  <li><a href="{% url 'stockmanager:location' location.id %}">{{ location }}</a></li>
+  {% endfor %}
+</ul>
